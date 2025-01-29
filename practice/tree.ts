@@ -54,8 +54,13 @@ Tree image
 //make the helper function to traverse the tree
 
 class Helper_Fun
+
 	
 	{	
+
+	max_value : number ;
+
+
 
 	helper_dfs(node: TreeNode | null) : void
 	{
@@ -217,7 +222,20 @@ class Helper_Fun
 
 	}
 
+	
+	get_max_value(root: TreeNode | null)
+	
+	{
+
+	/*
+	The function to get the max value from the tree
+	*/
+
+
 	}
+
+
+}
 
 
 //make the helper function 
