@@ -57,12 +57,12 @@ var Helper_Fun = /** @class */ (function () {
         //base case 
         if (!root) {
             console.log(null);
-        }
-        if (root.left == null && root.right == null) {
-            console.log(root.val);
+            return;
         }
         //make the recurseive call
         this.helper_dfs(root);
+        // return as tree print is done 
+        return "Tree is Printed in DFS";
     };
     return Helper_Fun;
 }());

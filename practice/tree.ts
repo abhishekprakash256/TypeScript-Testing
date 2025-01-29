@@ -55,11 +55,11 @@ Tree image
 
 class Helper_Fun
 {	
-	helper_dfs(node: any)
+	helper_dfs(node: TreeNode | null) : void
 	{
 
 	//base case 
-	if (! node) 
+	if (!node) 
 		{
 			return ;
 		}
@@ -74,24 +74,22 @@ class Helper_Fun
 
 	}
 
-	tree_print_dfs( root : any )
+	tree_print_dfs( root : TreeNode | null )
 	
 	{
 		//base case 
-		if (! root)
+		if (!root)
 			{
 				console.log(null) ;
+				return
 			} 
-
-		if (root.left == null && root.right == null)
-			{
-				console.log(root.val) ;
-			}
 
 		//make the recurseive call
 		this.helper_dfs(root) ;
 
-	} 
+		// return as tree print is done 
+		return "Tree is Printed in DFS"
+	}
 }
 
 
