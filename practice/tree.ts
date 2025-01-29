@@ -54,7 +54,9 @@ Tree image
 //make the helper function to traverse the tree
 
 class Helper_Fun
-{	
+	
+	{	
+
 	helper_dfs(node: TreeNode | null) : void
 	{
 
@@ -93,6 +95,7 @@ class Helper_Fun
 
 
 	tree_print_bfs(root : TreeNode | null) 
+	
 	{ 
 		/*
 		the function to print tree using bfs
@@ -107,7 +110,7 @@ class Helper_Fun
 		}
 
 		//make the queue
-		const queue : (TreeNode | null)[] = [root];
+		let queue : (TreeNode | null)[] = [root];
 
 		//start the traversal
 		while (queue.length) 
@@ -144,11 +147,81 @@ class Helper_Fun
 		return "Tree is Printed in BFS"
 
 	}
-}
 
+	tree_print_bfs_array(root: TreeNode | null)
+	
+	{
+		/*
+		The function to print the tree node in the list
+		*/
+
+	// constraints case 
+
+	//no node 
+	if (!root)
+	{
+		return [[]] ;
+	}
+
+	// if only one node 
+	if (root.left == null && root.right == null)
+
+	{
+		return [[root.val]] ;
+
+	}
+
+	let result : number[][] = []
+
+	//make the queue
+	let queue : (TreeNode|null)[] = [root] ;
+
+	//start the queue loop
+	while (queue.length)
+
+	{
+		let queue_length = queue.length ;
+
+		let node_list: number[] = [] ;
+
+		for (let i = 0; i < queue_length; i++)
+			
+			
+
+			{
+				let temp_node = queue.shift() ;
+
+			if (temp_node.val)
+			
+			{
+				node_list.push(temp_node.val) ;
+			}
+
+			if (temp_node.left)
+			{
+				queue.push(temp_node.left) ;
+			}
+
+			if (temp_node.right)
+
+			{
+				queue.push(temp_node.right) ;
+			}
+		}
+
+		result.push(node_list)
+
+	}
+
+	return result
+
+	}
+
+	}
 
 
 //make the helper function 
 const helper_fun = new Helper_Fun() ;
 console.log(helper_fun.tree_print_dfs(root)) 
-console.log(helper_fun.tree_print_bfs(root)) 
+console.log(helper_fun.tree_print_bfs(root))
+console.log(helper_fun.tree_print_bfs_array(root))

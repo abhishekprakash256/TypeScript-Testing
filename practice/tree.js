@@ -94,9 +94,46 @@ var Helper_Fun = /** @class */ (function () {
         }
         return "Tree is Printed in BFS";
     };
+    Helper_Fun.prototype.tree_print_bfs_array = function (root) {
+        /*
+        The function to print the tree node in the list
+        */
+        // constraints case 
+        //no node 
+        if (!root) {
+            return [[]];
+        }
+        // if only one node 
+        if (root.left == null && root.right == null) {
+            return [[root.val]];
+        }
+        var result = [];
+        //make the queue
+        var queue = [root];
+        //start the queue loop
+        while (queue.length) {
+            var queue_length = queue.length;
+            var node_list = [];
+            for (var i = 0; i < queue_length; i++) {
+                var temp_node = queue.shift();
+                if (temp_node.val) {
+                    node_list.push(temp_node.val);
+                }
+                if (temp_node.left) {
+                    queue.push(temp_node.left);
+                }
+                if (temp_node.right) {
+                    queue.push(temp_node.right);
+                }
+            }
+            result.push(node_list);
+        }
+        return result;
+    };
     return Helper_Fun;
 }());
 //make the helper function 
 var helper_fun = new Helper_Fun();
 console.log(helper_fun.tree_print_dfs(root));
 console.log(helper_fun.tree_print_bfs(root));
+console.log(helper_fun.tree_print_bfs_array(root));
