@@ -90,6 +90,60 @@ class Helper_Fun
 		// return as tree print is done 
 		return "Tree is Printed in DFS"
 	}
+
+
+	tree_print_bfs(root : TreeNode | null) 
+	{ 
+		/*
+		the function to print tree using bfs
+		*/
+
+		// constarint case 
+		if (!root)
+		{
+			console.log(null) ;
+
+			return "Tree is Printed in BFS"
+		}
+
+		//make the queue
+		const queue : (TreeNode | null)[] = [root];
+
+		//start the traversal
+		while (queue.length) 
+		{
+			//pop the element
+			let temp_node = queue.shift() ;
+
+			//if the temp node is there
+			if (temp_node)
+			{
+				console.log(temp_node.val) ;
+
+				//add the value in the queue 
+				if (temp_node.left) {
+
+				queue.push(temp_node.left) ;
+
+				}
+				
+				//add in the queue
+				if (temp_node.right) {
+
+				queue.push(temp_node.right) ;	
+				
+				}
+			}
+
+
+
+
+
+		}
+
+		return "Tree is Printed in BFS"
+
+	}
 }
 
 
@@ -97,3 +151,4 @@ class Helper_Fun
 //make the helper function 
 const helper_fun = new Helper_Fun() ;
 console.log(helper_fun.tree_print_dfs(root)) 
+console.log(helper_fun.tree_print_bfs(root)) 

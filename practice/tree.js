@@ -64,8 +64,39 @@ var Helper_Fun = /** @class */ (function () {
         // return as tree print is done 
         return "Tree is Printed in DFS";
     };
+    Helper_Fun.prototype.tree_print_bfs = function (root) {
+        /*
+        the function to print tree using bfs
+        */
+        // constarint case 
+        if (!root) {
+            console.log(null);
+            return "Tree is Printed in BFS";
+        }
+        //make the queue
+        var queue = [root];
+        //start the traversal
+        while (queue.length) {
+            //pop the element
+            var temp_node = queue.shift();
+            //if the temp node is there
+            if (temp_node) {
+                console.log(temp_node.val);
+                //add the value in the queue 
+                if (temp_node.left) {
+                    queue.push(temp_node.left);
+                }
+                //add in the queue
+                if (temp_node.right) {
+                    queue.push(temp_node.right);
+                }
+            }
+        }
+        return "Tree is Printed in BFS";
+    };
     return Helper_Fun;
 }());
 //make the helper function 
 var helper_fun = new Helper_Fun();
 console.log(helper_fun.tree_print_dfs(root));
+console.log(helper_fun.tree_print_bfs(root));
