@@ -239,7 +239,7 @@ class Helper_Fun
 
 	}
 
-	helper_dfs_max(node)
+	helper_dfs_max(node : TreeNode | null )
 		
 		{
 		/*
@@ -264,7 +264,7 @@ class Helper_Fun
 
 		}
 
-	tree_max_value(root)
+	tree_max_value(root : TreeNode | null )
 		
 		{
 		/*
@@ -286,7 +286,63 @@ class Helper_Fun
 		}
 
 
+
+		tree_max_value_bfs(root : TreeNode | null) 
+
+		{
+		/*
+		The function to get the max value from the tree using bfs
+		*/
+
+		// constarints case 
+		if (!root) 
+		{
+			return null ; 
+		}
+
+		// set the max value of var
+		let max_value : number = Number.NEGATIVE_INFINITY ; 
+
+		// make the queue 
+		let queue : ( TreeNode | null )[] = [root] ;
+
+		// start the traversal 
+		while (queue.length)
+
+		{	
+			let queue_length = queue.length ; 
+
+			let temp_node = queue.shift() ; 
+
+			for (let i = 0 ; i <= queue_length ; i ++ )
+			{
+				if (temp_node.val)
+				{	
+					// get the max value 
+					max_value = Math.max(max_value, temp_node.val) ; 
+				}
+
+				if (temp_node.left)
+				{
+					queue.push(temp_node.left) ; // push the left value
+				}
+
+				if (temp_node.right)
+				{
+					queue.push(temp_node.right) ; // push the right value 
+				}
+			}
+
+		}
+
+
+
+		return max_value
+
+	}
+	
 }
+
 
 
 //make the helper function 
@@ -295,3 +351,4 @@ console.log(helper_fun.tree_print_dfs(root))
 console.log(helper_fun.tree_print_bfs(root))
 console.log(helper_fun.tree_print_bfs_array(root))
 console.log(helper_fun.tree_max_value(root))
+console.log(helper_fun.tree_max_value_bfs(root))

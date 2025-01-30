@@ -165,6 +165,37 @@ var Helper_Fun = /** @class */ (function () {
         this.helper_dfs_max(root);
         return this.max_value;
     };
+    Helper_Fun.prototype.tree_max_value_bfs = function (root) {
+        /*
+        The function to get the max value from the tree using bfs
+        */
+        // constarints case 
+        if (!root) {
+            return null;
+        }
+        // set the max value of var
+        var max_value = Number.NEGATIVE_INFINITY;
+        // make the queue 
+        var queue = [root];
+        // start the traversal 
+        while (queue.length) {
+            var queue_length = queue.length;
+            var temp_node = queue.shift();
+            for (var i = 0; i <= queue_length; i++) {
+                if (temp_node.val) {
+                    // get the max value 
+                    max_value = Math.max(max_value, temp_node.val);
+                }
+                if (temp_node.left) {
+                    queue.push(temp_node.left); // push the left value
+                }
+                if (temp_node.right) {
+                    queue.push(temp_node.right); // push the right value 
+                }
+            }
+        }
+        return max_value;
+    };
     return Helper_Fun;
 }());
 //make the helper function 
@@ -173,3 +204,4 @@ console.log(helper_fun.tree_print_dfs(root));
 console.log(helper_fun.tree_print_bfs(root));
 console.log(helper_fun.tree_print_bfs_array(root));
 console.log(helper_fun.tree_max_value(root));
+console.log(helper_fun.tree_max_value_bfs(root));
