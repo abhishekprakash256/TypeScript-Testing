@@ -58,7 +58,12 @@ class Helper_Fun
 	
 	{	
 
-	max_value : number ;
+	max_value : number ; 
+
+	 constructor(max_value : number = Number.NEGATIVE_INFINITY ) {
+        this.max_value = max_value ;
+
+    }
 
 
 
@@ -234,6 +239,52 @@ class Helper_Fun
 
 	}
 
+	helper_dfs_max(node)
+		
+		{
+		/*
+		The function to use recursive dfs approach to get the max node value
+		*/
+
+		//base case 
+		if (!node) 
+		{
+			return this.max_value ; 
+		}
+
+		//make the recustions calls
+		let left = this.helper_dfs_max(node.left) ;
+		let right = this.helper_dfs_max(node.right) ;
+
+		//make the max value
+		this.max_value = Math.max(this.max_value, left, right);
+
+        // Return the max value found so far
+        return node.val;
+
+		}
+
+	tree_max_value(root)
+		
+		{
+		/*
+		The function to get the max value from the tree
+		*/
+
+		//base case 
+		if (! root )
+		{
+			return null ;
+		}
+
+		//make the recursive call
+		this.helper_dfs_max(root) ; 
+
+		return this.max_value ;
+
+
+		}
+
 
 }
 
@@ -243,3 +294,4 @@ const helper_fun = new Helper_Fun() ;
 console.log(helper_fun.tree_print_dfs(root)) 
 console.log(helper_fun.tree_print_bfs(root))
 console.log(helper_fun.tree_print_bfs_array(root))
+console.log(helper_fun.tree_max_value(root))

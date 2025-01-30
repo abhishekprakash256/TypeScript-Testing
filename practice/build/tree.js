@@ -40,7 +40,9 @@ Tree image
 */
 //make the helper function to traverse the tree
 var Helper_Fun = /** @class */ (function () {
-    function Helper_Fun() {
+    function Helper_Fun(max_value) {
+        if (max_value === void 0) { max_value = Number.NEGATIVE_INFINITY; }
+        this.max_value = max_value;
     }
     Helper_Fun.prototype.helper_dfs = function (node) {
         //base case 
@@ -130,6 +132,39 @@ var Helper_Fun = /** @class */ (function () {
         }
         return result;
     };
+    Helper_Fun.prototype.get_max_value = function (root) {
+        /*
+        The function to get the max value from the tree
+        */
+    };
+    Helper_Fun.prototype.helper_dfs_max = function (node) {
+        /*
+        The function to use recursive dfs approach to get the max node value
+        */
+        //base case 
+        if (!node) {
+            return this.max_value;
+        }
+        //make the recustions calls
+        var left = this.helper_dfs_max(node.left);
+        var right = this.helper_dfs_max(node.right);
+        //make the max value
+        this.max_value = Math.max(this.max_value, left, right);
+        // Return the max value found so far
+        return node.val;
+    };
+    Helper_Fun.prototype.tree_max_value = function (root) {
+        /*
+        The function to get the max value from the tree
+        */
+        //base case 
+        if (!root) {
+            return null;
+        }
+        //make the recursive call
+        this.helper_dfs_max(root);
+        return this.max_value;
+    };
     return Helper_Fun;
 }());
 //make the helper function 
@@ -137,3 +172,4 @@ var helper_fun = new Helper_Fun();
 console.log(helper_fun.tree_print_dfs(root));
 console.log(helper_fun.tree_print_bfs(root));
 console.log(helper_fun.tree_print_bfs_array(root));
+console.log(helper_fun.tree_max_value(root));
