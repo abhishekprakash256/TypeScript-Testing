@@ -110,25 +110,55 @@ how to detect a cycle ?
 
 we use a queue 
 
-do all the traveral if a value comes back it a cylce ? 
+make the dfs search 
 
-traversal 
+keep a visisted set to check for the node 
 
+and add that in the set 
 
-queue = [0]
-
-queue_length = len(queue)
-
-for _ in range(queue_length)
-temp_node = queue.pop()
-
-marked value ? 
-
-
-
-
-
-
+next time traverse the visted and if there terminate the loop 
 
 
 */
+
+
+class Solution
+
+{
+
+	graph : Map<number, number[]> ; 
+
+	constructor(graph : Map<number, number[]> = new Map() )
+	{
+		this.graph = graph ; 
+	}
+
+
+	make_graph(edges: number[][] )
+	{
+		//make the graph dict 
+
+		for (const [a,b] of egdes)
+		{
+			if (!this.graph.has(a)) {
+                this.graph.set(a, []);
+            }
+            if (!this.graph.has(b)) {
+                this.graph.set(b, []);
+            }
+            this.graph.get(a)?.push(b);
+            this.graph.get(b)?.push(a);
+		}
+
+
+	}
+}
+
+ 
+let test1: number[][] = [[0,1],[0,2],[0,3],[1,4]] ; 
+ 
+
+const sol = new Solution() ;
+sol.make_graph(test1) ; 
+
+console.log(sol.graph) ; 
