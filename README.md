@@ -12,23 +12,8 @@ Make sure you have the following installed:
 
 ### 2️⃣ Clone the Repository
 ```sh
-git git@github.com:abhishekprakash256/TypeScript-Playground.git
+git clone git@github.com:abhishekprakash256/TypeScript-Playground.git
 cd TypeScript-Playground
-```
-
-### 3️⃣ Install Dependencies
-```sh
-npm install  # or yarn install
-```
-
-### 4️⃣ Run TypeScript Code
-You can execute a TypeScript file using:
-```sh
-ts-node src/index.ts
-```
-Or compile it to JavaScript first:
-```sh
-tsc src/index.ts && node src/index.js
 ```
 
 ## 📌 What to Learn Here?
@@ -36,12 +21,11 @@ tsc src/index.ts && node src/index.js
 ✅ **Advanced Concepts** – Decorators, Type Guards, Utility Types
 ✅ **OOP in TypeScript** – Classes, Inheritance, Abstract Classes
 ✅ **Asynchronous Programming** – Promises, async/await, Fetch API
-✅ **TypeScript with Databases** – MongoDB, PostgreSQL with Prisma/TypeORM
-✅ **Building REST APIs** – Express.js + TypeScript
+✅ **TypeScript with Databases** – MongoDB
+✅ **LeetCode with TypeScript** – Arrays, Hashmaps, Two pointer, Graphs
 
 ## 🛠 Useful Commands
 - **Compile TypeScript**: `tsc`
-- **Run with ts-node**: `ts-node src/index.ts`
 - **Watch Mode**: `tsc --watch`
 - **Run ESLint**: `npx eslint .`
 
