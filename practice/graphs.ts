@@ -170,7 +170,7 @@ let test1: number[][] = [[0,1],[0,2],[0,3],[1,4]] ;
 const sol = new Solution() ;
 sol.make_graph(test1) ; 
 
-console.log(sol.graph) ; 
+console.log("hi") ; 
 
 
 

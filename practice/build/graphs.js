@@ -35,10 +35,10 @@ function numIslands(grid) {
         }
     }
     //make the vars
-    var num_island = 0;
+    let num_island = 0;
     //make the iteration and recursive call
-    for (var i = 0; i <= grid.length - 1; i++) {
-        for (var j = 0; j <= grid[0].length - 1; j++) {
+    for (let i = 0; i <= grid.length - 1; i++) {
+        for (let j = 0; j <= grid[0].length - 1; j++) {
             //pass the value that is island 
             if (grid[i][j] == "1") {
                 num_island += 1;
@@ -89,16 +89,14 @@ next time traverse the visted and if there terminate the loop
 
 
 */
-var Solution = /** @class */ (function () {
-    function Solution(graph) {
-        if (graph === void 0) { graph = new Map(); }
+class Solution {
+    constructor(graph = new Map()) {
         this.graph = graph;
     }
-    Solution.prototype.make_graph = function (edges) {
+    make_graph(edges) {
         //make the graph dict 
         var _a, _b;
-        for (var _i = 0, edges_1 = edges; _i < edges_1.length; _i++) {
-            var _c = edges_1[_i], a = _c[0], b = _c[1];
+        for (const [a, b] of edges) {
             if (!this.graph.has(a)) {
                 this.graph.set(a, []);
             }
@@ -108,10 +106,9 @@ var Solution = /** @class */ (function () {
             (_a = this.graph.get(a)) === null || _a === void 0 ? void 0 : _a.push(b);
             (_b = this.graph.get(b)) === null || _b === void 0 ? void 0 : _b.push(a);
         }
-    };
-    return Solution;
-}());
-var test1 = [[0, 1], [0, 2], [0, 3], [1, 4]];
-var sol = new Solution();
+    }
+}
+let test1 = [[0, 1], [0, 2], [0, 3], [1, 4]];
+const sol = new Solution();
 sol.make_graph(test1);
-console.log(sol.graph);
+console.log("hi");
