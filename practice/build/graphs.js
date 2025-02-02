@@ -97,8 +97,8 @@ var Solution = /** @class */ (function () {
     Solution.prototype.make_graph = function (edges) {
         //make the graph dict 
         var _a, _b;
-        for (var _i = 0, egdes_1 = egdes; _i < egdes_1.length; _i++) {
-            var _c = egdes_1[_i], a = _c[0], b = _c[1];
+        for (var _i = 0, edges_1 = edges; _i < edges_1.length; _i++) {
+            var _c = edges_1[_i], a = _c[0], b = _c[1];
             if (!this.graph.has(a)) {
                 this.graph.set(a, []);
             }

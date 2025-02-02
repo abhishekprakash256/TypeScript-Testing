@@ -10,70 +10,70 @@ The function to epxlore the graph problems in type script
 
 function helper_dfs(i : number , j : number, grid: string[][] ) 
 {
-	/*
-	The function to search the grid using dfs 
-	*/
+    /*
+    The function to search the grid using dfs 
+    */
 
-	// base case 
-	if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || grid[i][j] == "0")
-	{
-		return null ;
-	}
+    // base case 
+    if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || grid[i][j] == "0")
+    {
+        return null ;
+    }
 
-	// mark the grid 
-	grid[i][j] = "0"
+    // mark the grid 
+    grid[i][j] = "0"
 
-	//make the recursive helper dfs call
-	helper_dfs(i-1, j , grid) ; // up
-	helper_dfs(i + 1, j , grid) ; // down 
-	helper_dfs(i , j - 1 , grid) ; // left
-	helper_dfs(i , j + 1 , grid) ; // right
+    //make the recursive helper dfs call
+    helper_dfs(i-1, j , grid) ; // up
+    helper_dfs(i + 1, j , grid) ; // down 
+    helper_dfs(i , j - 1 , grid) ; // left
+    helper_dfs(i , j + 1 , grid) ; // right
 
 };
 
 
 function numIslands(grid: string[][]): number {
 
-	/*
-	The function to find the number of island in the grid grap
-	passes leetcode 
-	*/
+    /*
+    The function to find the number of island in the grid grap
+    passes leetcode 
+    */
 
-	//constaints case 
-	if ((grid.length == 1) && (grid[0].length) == 1) 
-	{
-		if ((grid[0][0]) == "1" )
-		{
-			return 1 ; 
-		}
+    //constaints case 
+    if ((grid.length == 1) && (grid[0].length) == 1) 
+    {
+        if ((grid[0][0]) == "1" )
+        {
+            return 1 ; 
+        }
 
-		else 
-		{
-			return 0 ;
-		}
-	}
+        else 
+        {
+            return 0 ;
+        }
+    }
 
-	//make the vars
-	let num_island : number = 0 ;
+    //make the vars
+    let num_island : number = 0 ;
 
-	//make the iteration and recursive call
-	for (let i = 0 ; i <= grid.length - 1 ; i ++ )
+    //make the iteration and recursive call
+    for (let i = 0 ; i <= grid.length - 1 ; i ++ )
 
-	{
-		for (let j = 0 ; j <= grid[0].length -1 ; j ++ )
-		{
-			//pass the value that is island 
-			if (grid[i][j] == "1" ) 
-			{
-				num_island += 1 ;
-			}
+    {
+        for (let j = 0 ; j <= grid[0].length -1 ; j ++ )
+        {
+            //pass the value that is island 
+            if (grid[i][j] == "1" ) 
+            {
+                num_island += 1 ;
+            }
 
-			//recursion call
-			helper_dfs(i,j,grid)  ; 
-		}
-	}
+            //recursion call
+            helper_dfs(i,j,grid)  ; 
+        }
+    }
 
-	return num_island ; 
+    return num_island ; 
 
     
 };
@@ -123,38 +123,47 @@ next time traverse the visted and if there terminate the loop
 
 
 class Solution
-
 {
 
-	graph : Map<number, number[]> ; 
+    graph : Map<number, number[]> ; //declare the graph
 
-	constructor(graph : Map<number, number[]> = new Map() )
-	{
-		this.graph = graph ; 
-	}
+    constructor(graph :  Map<number, number[]> = new Map())
+    {
+        this.graph = graph ; 
+    }
 
 
-	make_graph(edges: number[][] )
-	{
-		//make the graph dict 
+    make_graph(edges: number[][])
 
-		for (const [a,b] of egdes)
-		{
-			if (!this.graph.has(a)) {
+    {
+        //make the graph dict 
+
+        for (const [a,b] of edges)
+        {
+            if (!this.graph.has(a)) 
+            
+            {
                 this.graph.set(a, []);
             }
-            if (!this.graph.has(b)) {
+
+            if (!this.graph.has(b)) 
+
+            {
                 this.graph.set(b, []);
             }
+
             this.graph.get(a)?.push(b);
             this.graph.get(b)?.push(a);
-		}
+        }
 
 
-	}
+    }
+
 }
-
  
+
+
+
 let test1: number[][] = [[0,1],[0,2],[0,3],[1,4]] ; 
  
 
@@ -162,3 +171,6 @@ const sol = new Solution() ;
 sol.make_graph(test1) ; 
 
 console.log(sol.graph) ; 
+
+
+
