@@ -35,10 +35,10 @@ function numIslands(grid) {
         }
     }
     //make the vars
-    let num_island = 0;
+    var num_island = 0;
     //make the iteration and recursive call
-    for (let i = 0; i <= grid.length - 1; i++) {
-        for (let j = 0; j <= grid[0].length - 1; j++) {
+    for (var i = 0; i <= grid.length - 1; i++) {
+        for (var j = 0; j <= grid[0].length - 1; j++) {
             //pass the value that is island 
             if (grid[i][j] == "1") {
                 num_island += 1;
@@ -89,14 +89,16 @@ next time traverse the visted and if there terminate the loop
 
 
 */
-class Solution {
-    constructor(graph = new Map()) {
+var Solution = /** @class */ (function () {
+    function Solution(graph) {
+        if (graph === void 0) { graph = new Map(); }
         this.graph = graph;
     }
-    make_graph(edges) {
+    Solution.prototype.make_graph = function (edges) {
         //make the graph dict 
         var _a, _b;
-        for (const [a, b] of edges) {
+        for (var _i = 0, edges_1 = edges; _i < edges_1.length; _i++) {
+            var _c = edges_1[_i], a = _c[0], b = _c[1];
             if (!this.graph.has(a)) {
                 this.graph.set(a, []);
             }
@@ -106,9 +108,33 @@ class Solution {
             (_a = this.graph.get(a)) === null || _a === void 0 ? void 0 : _a.push(b);
             (_b = this.graph.get(b)) === null || _b === void 0 ? void 0 : _b.push(a);
         }
+    };
+    return Solution;
+}());
+var Solution_alternate = /** @class */ (function () {
+    function Solution_alternate(graph) {
+        if (graph === void 0) { graph = {}; }
+        this.graph = graph;
     }
-}
-let test1 = [[0, 1], [0, 2], [0, 3], [1, 4]];
-const sol = new Solution();
+    Solution_alternate.prototype.make_graph = function (edges) {
+        for (var _i = 0, edges_2 = edges; _i < edges_2.length; _i++) {
+            var _a = edges_2[_i], a = _a[0], b = _a[1];
+            if (!this.graph[a]) {
+                this.graph[a] = [];
+            }
+            if (!this.graph[b]) {
+                this.graph[b] = [];
+            }
+            this.graph[a].push(b);
+            this.graph[b].push(a);
+        }
+    };
+    return Solution_alternate;
+}());
+var test1 = [[0, 1], [0, 2], [0, 3], [1, 4]];
+var sol = new Solution();
 sol.make_graph(test1);
-console.log("hi");
+console.log(sol.graph);
+var sol_alt = new Solution_alternate();
+sol_alt.make_graph(test1);
+console.log(sol_alt.graph);

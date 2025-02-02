@@ -164,13 +164,46 @@ class Solution
 
 
 
+class Solution_alternate {
+    graph: { [key: number]: number[] }; // Declare the graph as an object
+
+    constructor(graph: { [key: number]: number[] } = {}) {
+        this.graph = graph;
+    }
+
+    make_graph(edges: number[][]) {
+        for (const [a, b] of edges) {
+            if (!this.graph[a]) {
+                this.graph[a] = [];
+            }
+            if (!this.graph[b]) {
+                this.graph[b] = [];
+            }
+            this.graph[a].push(b);
+            this.graph[b].push(a);
+        }
+    }
+}
+
+
+
+
+
 let test1: number[][] = [[0,1],[0,2],[0,3],[1,4]] ; 
  
 
 const sol = new Solution() ;
 sol.make_graph(test1) ; 
 
-console.log("hi") ; 
+console.log(sol.graph) ; 
+
+
+const sol_alt = new Solution_alternate() ; 
+
+sol_alt.make_graph(test1) ; 
+
+console.log(sol_alt.graph) ;
+
 
 
 
