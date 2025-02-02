@@ -16,6 +16,11 @@ git clone git@github.com:abhishekprakash256/TypeScript-Playground.git
 cd TypeScript-Playground
 ```
 
+### Compiling commad using the target
+```sh
+tsc --target es2015 --outDir dist index.ts app.ts
+```
+
 ## 📌 What to Learn Here?
 ✅ **Basic TypeScript Features** – Types, Interfaces, Enums, Functions, Generics
 ✅ **Advanced Concepts** – Decorators, Type Guards, Utility Types
