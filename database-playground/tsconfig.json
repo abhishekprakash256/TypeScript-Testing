@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",            // or "ESNext"
+    "esModuleInterop": true,         // This enables default imports for CommonJS modules
+    "strict": true,                  // Optional: For strict type checking
+    "target": "ES6",                 // or higher version if you prefer
+    "moduleResolution": "node"       // Ensures Node modules are resolved correctly
+  },
+  "include": [
+    "connector_sql.ts"               // Include your files or directories here
+  ]
+}
