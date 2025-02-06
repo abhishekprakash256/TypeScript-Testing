@@ -9,7 +9,7 @@ import { Client } from 'pg';
 
 // Create a new PostgreSQL client
 const client = new Client({
-  user: 'postgres', // Replace with your database username
+  user: 'abhi', // Replace with your database username
   host: 'localhost',     // Replace with your database host if different
   //database: 'your_db',   // Replace with your database name
   //password: 'your_password', // Replace with your database password
@@ -22,3 +22,5 @@ const client = new Client({
 
 // export the client 
 export { client } ; 
+
+
