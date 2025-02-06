@@ -4,7 +4,6 @@ The function to make the connection with postgresql
 */
 
 
-
 // dbConnection.ts
 import { Client } from 'pg';
 

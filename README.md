@@ -12,12 +12,14 @@ Make sure you have the following installed:
 
 ### 2️⃣ Clone the Repository
 ```sh
-git clone git@github.com:abhishekprakash256/TypeScript-Playground.git
+git clone git@github.com:abhishekprakash256/typeScript-playground.git
 cd TypeScript-Playground
 ```
 
 ### Compiling commad using the target
 ```sh
+tsc filename.ts --outDir folder/
+
 tsc --target es2015 --outDir dist index.ts app.ts
 ```
 
