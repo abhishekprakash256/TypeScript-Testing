@@ -15,41 +15,71 @@ let TABLE_NAME : string = 'contact.contacts' ;
 
 
 // Make sure 'client' is passed to the constructor
-class Helper_Fun 
+class Helper_Fun {
+  client: any;  // Use the appropriate type for 'client'
 
-{
-
-  client : any;  // Use the appropriate type for 'client'
-
-  constructor(client: any ) {
-    this.client = client ;
+  constructor(client: any) {
+    this.client = client;
   }
 
-  async add_value(database_name: string, table_name: string, entry: object) {
+  // Method to insert data into a table
+  async add_value(table_name: string, entry: object) {
+    /*
+    The function to add values to the database using an existing client
+    */
     try {
-      // Connect to the specified database
-      await this.client.connect();
-      console.log(`Connected to database: ${database_name}`);
-  
+      console.log(`Inserting into table: ${table_name}`);
+
+      // Ensure the client is connected before executing any query
+      if (!this.client._connected) {
+        await this.client.connect();
+        console.log("Connected to database");
+      }
+
       // Extract columns and values safely
       const columns = Object.keys(entry).join(", ");
       const values = Object.values(entry);
       const placeholders = values.map((_, i) => `$${i + 1}`).join(", ");
-  
+
       // Create a parameterized SQL query
       const query = `INSERT INTO ${table_name} (${columns}) VALUES (${placeholders})`;
-  
-      // Execute the insert query
+
+      // Execute the insert query with values
       await this.client.query(query, values);
       console.log("Value inserted successfully");
     } catch (error) {
-      console.error("Error during inserting value:", error);
-    } finally {
-      // Disconnect from the database
-      await this.client.end();
+      console.error("Error inserting value:", error);
+    }
+  }
+
+  // Method to fetch all values from a table
+  async get_all_values(table_name: string) {
+    /*
+    The function to retrieve all values from a table using an existing client
+    */
+    try {
+      console.log(`Fetching all values from table: ${table_name}`);
+
+      // Ensure the client is connected before executing any query
+      if (!this.client._connected) {
+        await this.client.connect();
+        console.log("Connected to database");
+      }
+
+      // Fetch all records from the specified table
+      const query = `SELECT * FROM ${table_name}`;
+      const result = await this.client.query(query);
+
+      // Print and return the retrieved data
+      console.log("Retrieved Data:", result.rows);
+      return result.rows;
+    } catch (error) {
+      console.error("Error retrieving data:", error);
+      return [];
     }
   }
   
+
 
   update_value()
   {
@@ -109,4 +139,6 @@ const entry = {
 
 
 
-helper_fun.add_value(DATA_BASE_NAME , TABLE_NAME , entry)
+helper_fun.add_value( TABLE_NAME , entry)
+
+helper_fun.get_all_values( TABLE_NAME )

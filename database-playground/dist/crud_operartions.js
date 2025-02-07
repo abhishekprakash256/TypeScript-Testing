@@ -49,42 +49,70 @@ var Helper_Fun = /** @class */ (function () {
     function Helper_Fun(client) {
         this.client = client;
     }
-    Helper_Fun.prototype.add_value = function (database_name, table_name, entry) {
+    // Method to insert data into a table
+    Helper_Fun.prototype.add_value = function (table_name, entry) {
         return __awaiter(this, void 0, void 0, function () {
             var columns, values, placeholders, query, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 3, 4, 6]);
-                        // Connect to the specified database
+                        _a.trys.push([0, 4, , 5]);
+                        console.log("Inserting into table: ".concat(table_name));
+                        if (!!this.client._connected) return [3 /*break*/, 2];
                         return [4 /*yield*/, this.client.connect()];
                     case 1:
-                        // Connect to the specified database
                         _a.sent();
-                        console.log("Connected to database: ".concat(database_name));
+                        console.log("Connected to database");
+                        _a.label = 2;
+                    case 2:
                         columns = Object.keys(entry).join(", ");
                         values = Object.values(entry);
                         placeholders = values.map(function (_, i) { return "$".concat(i + 1); }).join(", ");
                         query = "INSERT INTO ".concat(table_name, " (").concat(columns, ") VALUES (").concat(placeholders, ")");
-                        // Execute the insert query
+                        // Execute the insert query with values
                         return [4 /*yield*/, this.client.query(query, values)];
-                    case 2:
-                        // Execute the insert query
+                    case 3:
+                        // Execute the insert query with values
                         _a.sent();
                         console.log("Value inserted successfully");
-                        return [3 /*break*/, 6];
-                    case 3:
+                        return [3 /*break*/, 5];
+                    case 4:
                         error_1 = _a.sent();
-                        console.error("Error during inserting value:", error_1);
-                        return [3 /*break*/, 6];
-                    case 4: 
-                    // Disconnect from the database
-                    return [4 /*yield*/, this.client.end()];
-                    case 5:
-                        // Disconnect from the database
+                        console.error("Error inserting value:", error_1);
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    // Method to fetch all values from a table
+    Helper_Fun.prototype.get_all_values = function (table_name) {
+        return __awaiter(this, void 0, void 0, function () {
+            var query, result, error_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 4, , 5]);
+                        console.log("Fetching all values from table: ".concat(table_name));
+                        if (!!this.client._connected) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.client.connect()];
+                    case 1:
                         _a.sent();
-                        return [7 /*endfinally*/];
-                    case 6: return [2 /*return*/];
+                        console.log("Connected to database");
+                        _a.label = 2;
+                    case 2:
+                        query = "SELECT * FROM ".concat(table_name);
+                        return [4 /*yield*/, this.client.query(query)];
+                    case 3:
+                        result = _a.sent();
+                        // Print and return the retrieved data
+                        console.log("Retrieved Data:", result.rows);
+                        return [2 /*return*/, result.rows];
+                    case 4:
+                        error_2 = _a.sent();
+                        console.error("Error retrieving data:", error_2);
+                        return [2 /*return*/, []];
+                    case 5: return [2 /*return*/];
                 }
             });
         });
@@ -121,4 +149,5 @@ var entry = {
         country: "USA"
     }) // Convert JSON object to string for JSONB column
 };
-helper_fun.add_value(DATA_BASE_NAME, TABLE_NAME, entry);
+helper_fun.add_value(TABLE_NAME, entry);
+helper_fun.get_all_values(TABLE_NAME);
