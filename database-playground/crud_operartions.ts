@@ -103,10 +103,22 @@ async search_value(table_name: string, search_condition: string) {
   }
 }
 
+async closeConnection() {
+  /*
+  close the connection if needed
+  */
+  try {
+    await this.client.end();
+    console.log("Database connection closed");
+  } catch (error) {
+    console.error("Error closing connection:", error);
+  }
+}
+
 }
 
 //test the database addtion of the data 
 
-const DBHelper = new Helper_Fun(client);
-export { DBHelper };
+//const DBHelper = new Helper_Fun(client);
+export { Helper_Fun };
 
