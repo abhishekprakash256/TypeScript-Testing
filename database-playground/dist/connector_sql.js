@@ -5,9 +5,7 @@ The function to make the connection with postgresql
 */
 exports.__esModule = true;
 exports.client = void 0;
-// dbConnection.ts
 var pg_1 = require("pg");
-// Create a new PostgreSQL client
 var client = new pg_1.Client({
     user: 'abhi',
     host: 'localhost',
@@ -16,3 +14,5 @@ var client = new pg_1.Client({
     port: 5432
 });
 exports.client = client;
+client.connect()
+    .then(function () { return console.log("Connected to PostgreSQL"); })["catch"](function (err) { return console.error(" Database Connection Error:", err); });
