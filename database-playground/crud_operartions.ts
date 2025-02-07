@@ -170,7 +170,6 @@ async record_exists(table_name: string, condition: string) {
   }
 }
 
-
 async upsert(table_name: string, entry: object, unique_column: string) {
   try {
       console.log(`Upserting into ${table_name}`);
@@ -181,6 +180,7 @@ async upsert(table_name: string, entry: object, unique_column: string) {
 
       const updates = columns.map((col) => `${col} = EXCLUDED.${col}`).join(", ");
 
+      // Ensure the unique_column has a unique constraint in the database
       const query = `
           INSERT INTO ${table_name} (${columns.join(", ")}) 
           VALUES (${placeholders}) 

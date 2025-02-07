@@ -95,7 +95,7 @@ async function test_fun() {
     await dbHelper.update_value(TABLE_NAME, updatedEntry, 'id = 1');
     
     //upsert the value
-    await dbHelper.upsert(TABLE_NAME, upsertEntry, "phone");
+    await dbHelper.upsert(TABLE_NAME, upsertEntry, "id" );
     
     //paignation of users
     const paginatedUsers = await dbHelper.fetch_paginated(TABLE_NAME, 5, 0);

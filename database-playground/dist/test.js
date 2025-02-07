@@ -126,7 +126,7 @@ function test_fun() {
                     //update one value 
                     _a.sent();
                     //upsert the value
-                    return [4 /*yield*/, dbHelper.upsert(TABLE_NAME, upsertEntry, "phone")];
+                    return [4 /*yield*/, dbHelper.upsert(TABLE_NAME, upsertEntry, "id")];
                 case 4:
                     //upsert the value
                     _a.sent();
