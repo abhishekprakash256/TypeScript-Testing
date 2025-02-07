@@ -53,7 +53,7 @@ var Helper_Fun = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        console.log("\uD83D\uDCCC Inserting into table: ".concat(table_name));
+                        console.log("Inserting into table: ".concat(table_name));
                         columns = Object.keys(entry).join(", ");
                         values = Object.values(entry);
                         placeholders = values.map(function (_, i) { return "$".concat(i + 1); }).join(", ");
@@ -96,28 +96,83 @@ var Helper_Fun = /** @class */ (function () {
             });
         });
     };
-    Helper_Fun.prototype.update_value = function () {
-        /*
-        the fucnttion to update the value in sql
-        */
+    // Method to update an existing value in a table
+    Helper_Fun.prototype.update_value = function (table_name, entry, condition) {
+        return __awaiter(this, void 0, void 0, function () {
+            var columns, values, setClause, query, error_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        console.log("Updating value in table: ".concat(table_name));
+                        columns = Object.keys(entry);
+                        values = Object.values(entry);
+                        setClause = columns.map(function (col, index) { return "".concat(col, " = $").concat(index + 1); }).join(", ");
+                        query = "UPDATE ".concat(table_name, " SET ").concat(setClause, " WHERE ").concat(condition);
+                        return [4 /*yield*/, this.client.query(query, values)];
+                    case 1:
+                        _a.sent();
+                        console.log("Value updated successfully");
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_3 = _a.sent();
+                        console.error("Error updating value:", error_3);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
     };
-    Helper_Fun.prototype.delete_value = function () {
-        /*
-        The function to delete the value in the sql
-        */
+    // Method to delete a value from a table
+    Helper_Fun.prototype.delete_value = function (table_name, condition) {
+        return __awaiter(this, void 0, void 0, function () {
+            var query, error_4;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        console.log("Deleting value from table: ".concat(table_name));
+                        query = "DELETE FROM ".concat(table_name, " WHERE ").concat(condition);
+                        return [4 /*yield*/, this.client.query(query)];
+                    case 1:
+                        _a.sent();
+                        console.log("Value deleted successfully");
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_4 = _a.sent();
+                        console.error("Error deleting value:", error_4);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
     };
-    Helper_Fun.prototype.search_value = function () {
-        /*
-        The function to search the value in the sql
-        */
+    // Method to search for a specific value in a table based on a condition
+    Helper_Fun.prototype.search_value = function (table_name, search_condition) {
+        return __awaiter(this, void 0, void 0, function () {
+            var query, result, error_5;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        console.log("Searching value in table: ".concat(table_name));
+                        query = "SELECT * FROM ".concat(table_name, " WHERE ").concat(search_condition);
+                        return [4 /*yield*/, this.client.query(query)];
+                    case 1:
+                        result = _a.sent();
+                        console.log("Search results:", result.rows);
+                        return [2 /*return*/, result.rows];
+                    case 2:
+                        error_5 = _a.sent();
+                        console.error("Error searching value:", error_5);
+                        return [2 /*return*/, []];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
     };
     return Helper_Fun;
 }());
-// Make the helper function and pass 'client' to the constructor
-var helper_fun = new Helper_Fun(connector_sql_1.client);
-//console.log(helper_fun.client );
 //test the database addtion of the data 
 var DBHelper = new Helper_Fun(connector_sql_1.client);
 exports.DBHelper = DBHelper;
-//helper_fun.add_value( TABLE_NAME , entry)
-//helper_fun.get_all_values( TABLE_NAME )

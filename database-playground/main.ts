@@ -25,18 +25,28 @@ const entry = {
     try {
 
         //tested
-        //await DBHelper.add_value(TABLE_NAME, entry);  // add the data into the database 
+        await DBHelper.add_value(TABLE_NAME, entry);  // add the data into the database 
 
         const data = await DBHelper.get_all_values(TABLE_NAME); //print all the values
 
         console.log("Fetched Data:", data);
+
+        // Updating a record
+        const updatedEntry = { phone: '123456789' };
+        await DBHelper.update_value(TABLE_NAME, updatedEntry, 'id = 1');
+
+        // Deleting a record
+        await DBHelper.delete_value(TABLE_NAME, 'id = 1');
+
+        // Searching for a record
+        await DBHelper.search_value(TABLE_NAME, "first_name = 'Alice'");
 
     } catch (error) {
         console.error("Error:", error);
 
     } finally {
         await client.end();  // Close the database connection
-        console.log("🔌 Database connection closed");
+        console.log("Database connection closed");
         process.exit(0);  // Force exit after execution
     }
 })();

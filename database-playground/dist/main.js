@@ -56,27 +56,46 @@ var entry = {
     }) // Convert JSON object to string for JSONB column
 };
 (function () { return __awaiter(void 0, void 0, void 0, function () {
-    var data, error_1;
+    var data, updatedEntry, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 2, 3, 5]);
-                return [4 /*yield*/, crud_operartions_1.DBHelper.get_all_values(TABLE_NAME)];
+                _a.trys.push([0, 6, 7, 9]);
+                //tested
+                return [4 /*yield*/, crud_operartions_1.DBHelper.add_value(TABLE_NAME, entry)];
             case 1:
+                //tested
+                _a.sent(); // add the data into the database 
+                return [4 /*yield*/, crud_operartions_1.DBHelper.get_all_values(TABLE_NAME)];
+            case 2:
                 data = _a.sent();
                 console.log("Fetched Data:", data);
-                return [3 /*break*/, 5];
-            case 2:
+                updatedEntry = { phone: '123456789' };
+                return [4 /*yield*/, crud_operartions_1.DBHelper.update_value(TABLE_NAME, updatedEntry, 'id = 1')];
+            case 3:
+                _a.sent();
+                // Deleting a record
+                return [4 /*yield*/, crud_operartions_1.DBHelper.delete_value(TABLE_NAME, 'id = 1')];
+            case 4:
+                // Deleting a record
+                _a.sent();
+                // Searching for a record
+                return [4 /*yield*/, crud_operartions_1.DBHelper.search_value(TABLE_NAME, "first_name = 'Alice'")];
+            case 5:
+                // Searching for a record
+                _a.sent();
+                return [3 /*break*/, 9];
+            case 6:
                 error_1 = _a.sent();
                 console.error("Error:", error_1);
-                return [3 /*break*/, 5];
-            case 3: return [4 /*yield*/, connector_sql_1.client.end()];
-            case 4:
+                return [3 /*break*/, 9];
+            case 7: return [4 /*yield*/, connector_sql_1.client.end()];
+            case 8:
                 _a.sent(); // Close the database connection
-                console.log("🔌 Database connection closed");
+                console.log("Database connection closed");
                 process.exit(0); // Force exit after execution
                 return [7 /*endfinally*/];
-            case 5: return [2 /*return*/];
+            case 9: return [2 /*return*/];
         }
     });
 }); })();
