@@ -1,0 +1,10 @@
+docker run -d --name postgres-container \
+  -e POSTGRES_USER=abhi \
+  -e POSTGRES_PASSWORD=mypassword \
+  -e POSTGRES_DB=contact \
+  -v $(pwd)/init.sql:/docker-entrypoint-initdb.d/init.sql \
+  -p 5432:5432 \
+  postgres
+
+
+  docker rm $(docker ps -aq)
