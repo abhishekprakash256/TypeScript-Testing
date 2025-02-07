@@ -1,7 +1,7 @@
 // the file to get make the crud operations in postgresql 
 
 
-import { client } from './connector_sql';  // import the clinedt
+//import { client } from './connector_sql';  // import the clinedt
 //import { setupDatabase } from './create_db_schema' ; 
 
 
@@ -102,6 +102,8 @@ async search_value(table_name: string, search_condition: string) {
     return [];
   }
 }
+
+
 
 async closeConnection() {
   /*

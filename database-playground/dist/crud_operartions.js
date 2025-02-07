@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.Helper_Fun = void 0;
+//import { client } from './connector_sql';  // import the clinedt
 //import { setupDatabase } from './create_db_schema' ; 
 // Make sure 'client' is passed to the constructor
 var Helper_Fun = /** @class */ (function () {

@@ -12,8 +12,6 @@ const TABLE_NAME: string = 'contact.contacts';
 import { Helper_Fun } from './crud_operartions';
 import { client } from './connector_sql';
 
-// Create an instance of Helper_Fun
-const dbHelper = new Helper_Fun(client);
 
 // Inserting a new record
 const newEntry = {
@@ -28,7 +26,11 @@ const newEntry = {
 };
 
 
-async function main() {
+
+// Create an instance of Helper_Fun
+const dbHelper = new Helper_Fun(client);
+
+async function test_fun() {
 
     try 
     {
@@ -60,4 +62,4 @@ async function main() {
 
 }
 
-main(); // Call the function
+test_fun(); // Call the function
