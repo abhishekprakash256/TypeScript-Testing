@@ -1,3 +1,7 @@
+docker commands -- 
+
+docker pull postgres
+
 docker run -d --name postgres-container \
   -e POSTGRES_USER=abhi \
   -e POSTGRES_PASSWORD=mypassword \
@@ -6,5 +10,9 @@ docker run -d --name postgres-container \
   -p 5432:5432 \
   postgres
 
+docker rm $(docker ps -aq)
 
-  docker rm $(docker ps -aq)
+
+instructions 
+1. the docker run command makes the user , database and sql schema when running
+2. 

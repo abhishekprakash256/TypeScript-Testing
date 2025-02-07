@@ -52,6 +52,8 @@ class Helper_Fun {
     }
   }
 
+
+
   // Method to fetch all values from a table
   async get_all_values(table_name: string) {
     /*
@@ -86,18 +88,14 @@ class Helper_Fun {
   	/*
 	the fucnttion to update the value in sql
   	*/
-
-
   }
+
 
   delete_value()
   {
   	/*
 	The function to delete the value in the sql
   	*/
-
-
-
   }
 
   search_value()
