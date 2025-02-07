@@ -2,11 +2,10 @@
   "dependencies": {
     "@types/pg-promise": "^0.0.28",
     "pg": "^8.13.1",
-    "pg-promise": "^11.10.2",
     "typescript": "^5.7.3"
   },
   "devDependencies": {
-    "@types/node": "^22.13.0",
+    "@types/node": "^18.17.0",
     "@types/pg": "^8.11.11"
   }
 }
