@@ -57,47 +57,121 @@ var newEntry = {
         country: "USA"
     })
 };
+var bulkEntries = [
+    {
+        first_name: 'Alice',
+        last_name: 'Johnson',
+        phone: '987654321',
+        address: JSON.stringify({
+            street: "456 Elm St",
+            city: "Los Angeles",
+            country: "USA"
+        })
+    },
+    {
+        first_name: 'Bob',
+        last_name: 'Smith',
+        phone: '123456789',
+        address: JSON.stringify({
+            street: "789 Oak St",
+            city: "New York",
+            country: "USA"
+        })
+    },
+    {
+        first_name: 'Charlie',
+        last_name: 'Brown',
+        phone: '555888999',
+        address: JSON.stringify({
+            street: "321 Maple Ave",
+            city: "Chicago",
+            country: "USA"
+        })
+    }
+];
+var upsertEntry = {
+    first_name: 'Alice',
+    last_name: 'Williams',
+    phone: '987654321',
+    address: JSON.stringify({
+        street: "456 Elm St",
+        city: "Los Angeles",
+        country: "USA"
+    })
+};
+var searchCondition = "first_name = 'Charlie' AND phone = '555888999'";
 // Create an instance of Helper_Fun
 var dbHelper = new crud_operartions_1.Helper_Fun(connector_sql_1.client);
 function test_fun() {
     return __awaiter(this, void 0, void 0, function () {
-        var updatedEntry, error_1;
+        var updatedEntry, paginatedUsers, totalUsers, userExists, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 6, 7, 9]);
+                    _a.trys.push([0, 12, 13, 15]);
+                    //insert the one data
                     return [4 /*yield*/, dbHelper.add_value(TABLE_NAME, newEntry)];
                 case 1:
+                    //insert the one data
                     _a.sent();
-                    // Fetching all records
-                    return [4 /*yield*/, dbHelper.get_all_values(TABLE_NAME)];
+                    //insert the data in bulk
+                    return [4 /*yield*/, dbHelper.bulk_insert(TABLE_NAME, bulkEntries)];
                 case 2:
-                    // Fetching all records
+                    //insert the data in bulk
                     _a.sent();
                     updatedEntry = { phone: '123456789' };
+                    //update one value 
                     return [4 /*yield*/, dbHelper.update_value(TABLE_NAME, updatedEntry, 'id = 1')];
                 case 3:
+                    //update one value 
                     _a.sent();
+                    //upsert the value
+                    return [4 /*yield*/, dbHelper.upsert(TABLE_NAME, upsertEntry, "phone")];
+                case 4:
+                    //upsert the value
+                    _a.sent();
+                    return [4 /*yield*/, dbHelper.fetch_paginated(TABLE_NAME, 5, 0)];
+                case 5:
+                    paginatedUsers = _a.sent();
+                    console.log("Paginated Users:", paginatedUsers);
                     // Deleting a record
                     return [4 /*yield*/, dbHelper.delete_value(TABLE_NAME, 'id = 1')];
-                case 4:
+                case 6:
                     // Deleting a record
                     _a.sent();
+                    return [4 /*yield*/, dbHelper.count_rows(TABLE_NAME)];
+                case 7:
+                    totalUsers = _a.sent();
+                    console.log("Total Users: ".concat(totalUsers));
                     // Searching for a record
                     return [4 /*yield*/, dbHelper.search_value(TABLE_NAME, "first_name = 'Alice'")];
-                case 5:
+                case 8:
                     // Searching for a record
                     _a.sent();
-                    return [3 /*break*/, 9];
-                case 6:
+                    return [4 /*yield*/, dbHelper.record_exists(TABLE_NAME, searchCondition)];
+                case 9:
+                    userExists = _a.sent();
+                    console.log("User Exists:", userExists);
+                    // Fetching all records
+                    return [4 /*yield*/, dbHelper.get_all_values(TABLE_NAME)];
+                case 10:
+                    // Fetching all records
+                    _a.sent();
+                    // the function to delete all the values
+                    return [4 /*yield*/, dbHelper.truncate_table(TABLE_NAME)];
+                case 11:
+                    // the function to delete all the values
+                    _a.sent();
+                    return [3 /*break*/, 15];
+                case 12:
                     error_1 = _a.sent();
                     console.error("Error:", error_1);
-                    return [3 /*break*/, 9];
-                case 7: return [4 /*yield*/, dbHelper.closeConnection()];
-                case 8:
+                    return [3 /*break*/, 15];
+                case 13: return [4 /*yield*/, dbHelper.closeConnection()];
+                case 14:
                     _a.sent();
                     return [7 /*endfinally*/];
-                case 9: return [2 /*return*/];
+                case 15: return [2 /*return*/];
             }
         });
     });

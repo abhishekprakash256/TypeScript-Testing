@@ -171,9 +171,156 @@ var Helper_Fun = /** @class */ (function () {
             });
         });
     };
+    Helper_Fun.prototype.bulk_insert = function (table_name, entries) {
+        return __awaiter(this, void 0, void 0, function () {
+            var keys_1, columns, values, flattenedValues, query, result, error_6;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        console.log("Bulk inserting into ".concat(table_name));
+                        keys_1 = Object.keys(entries[0]);
+                        columns = keys_1.join(", ");
+                        values = entries
+                            .map(function (entry, i) { return "(".concat(keys_1.map(function (_, j) { return "$".concat(i * keys_1.length + j + 1); }).join(", "), ")"); })
+                            .join(", ");
+                        flattenedValues = entries.flatMap(Object.values);
+                        query = "INSERT INTO ".concat(table_name, " (").concat(columns, ") VALUES ").concat(values, " RETURNING *");
+                        return [4 /*yield*/, this.client.query(query, flattenedValues)];
+                    case 1:
+                        result = _a.sent();
+                        console.log("Bulk insert successful:", result.rows);
+                        return [2 /*return*/, result.rows];
+                    case 2:
+                        error_6 = _a.sent();
+                        console.error("Error in bulk insert:", error_6);
+                        throw error_6;
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Helper_Fun.prototype.fetch_paginated = function (table_name, limit, offset) {
+        return __awaiter(this, void 0, void 0, function () {
+            var query, result, error_7;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        console.log("Fetching paginated data from ".concat(table_name));
+                        query = "SELECT * FROM ".concat(table_name, " LIMIT $1 OFFSET $2");
+                        return [4 /*yield*/, this.client.query(query, [limit, offset])];
+                    case 1:
+                        result = _a.sent();
+                        console.log("Paginated Data:", result.rows);
+                        return [2 /*return*/, result.rows];
+                    case 2:
+                        error_7 = _a.sent();
+                        console.error("Error fetching paginated data:", error_7);
+                        throw error_7;
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Helper_Fun.prototype.count_rows = function (table_name) {
+        return __awaiter(this, void 0, void 0, function () {
+            var query, result, error_8;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        query = "SELECT COUNT(*) FROM ".concat(table_name);
+                        return [4 /*yield*/, this.client.query(query)];
+                    case 1:
+                        result = _a.sent();
+                        console.log("Total Rows in ".concat(table_name, ":"), result.rows[0].count);
+                        return [2 /*return*/, result.rows[0].count];
+                    case 2:
+                        error_8 = _a.sent();
+                        console.error("Error counting rows:", error_8);
+                        throw error_8;
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Helper_Fun.prototype.record_exists = function (table_name, condition) {
+        return __awaiter(this, void 0, void 0, function () {
+            var query, result, error_9;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        query = "SELECT EXISTS (SELECT 1 FROM ".concat(table_name, " WHERE ").concat(condition, ")");
+                        return [4 /*yield*/, this.client.query(query)];
+                    case 1:
+                        result = _a.sent();
+                        console.log("Record Exists?", result.rows[0].exists);
+                        return [2 /*return*/, result.rows[0].exists];
+                    case 2:
+                        error_9 = _a.sent();
+                        console.error(" Error checking record existence:", error_9);
+                        throw error_9;
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Helper_Fun.prototype.upsert = function (table_name, entry, unique_column) {
+        return __awaiter(this, void 0, void 0, function () {
+            var columns, values, placeholders, updates, query, result, error_10;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        console.log("Upserting into ".concat(table_name));
+                        columns = Object.keys(entry);
+                        values = Object.values(entry);
+                        placeholders = values.map(function (_, i) { return "$".concat(i + 1); }).join(", ");
+                        updates = columns.map(function (col) { return "".concat(col, " = EXCLUDED.").concat(col); }).join(", ");
+                        query = "\n          INSERT INTO ".concat(table_name, " (").concat(columns.join(", "), ") \n          VALUES (").concat(placeholders, ") \n          ON CONFLICT (").concat(unique_column, ") \n          DO UPDATE SET ").concat(updates, " RETURNING *");
+                        return [4 /*yield*/, this.client.query(query, values)];
+                    case 1:
+                        result = _a.sent();
+                        console.log("Upsert successful:", result.rows[0]);
+                        return [2 /*return*/, result.rows[0]];
+                    case 2:
+                        error_10 = _a.sent();
+                        console.error("Error in upsert:", error_10);
+                        throw error_10;
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    Helper_Fun.prototype.truncate_table = function (table_name) {
+        return __awaiter(this, void 0, void 0, function () {
+            var query, error_11;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        query = "TRUNCATE TABLE ".concat(table_name, " RESTART IDENTITY CASCADE");
+                        // Execute the query
+                        return [4 /*yield*/, this.client.query(query)];
+                    case 1:
+                        // Execute the query
+                        _a.sent();
+                        console.log("Table truncated and all records deleted from: ".concat(table_name));
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_11 = _a.sent();
+                        console.error("Error truncating the table:", error_11);
+                        throw error_11;
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
     Helper_Fun.prototype.closeConnection = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var error_6;
+            var error_12;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -184,8 +331,8 @@ var Helper_Fun = /** @class */ (function () {
                         console.log("Database connection closed");
                         return [3 /*break*/, 3];
                     case 2:
-                        error_6 = _a.sent();
-                        console.error("Error closing connection:", error_6);
+                        error_12 = _a.sent();
+                        console.error("Error closing connection:", error_12);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }
