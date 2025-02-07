@@ -11,8 +11,8 @@ import { Client } from 'pg';
 const client = new Client({
   user: 'abhi', // Replace with your database username
   host: 'localhost',     // Replace with your database host if different
-  //database: 'your_db',   // Replace with your database name
-  //password: 'your_password', // Replace with your database password
+  database: 'contact',   // Replace with your database name
+  password: 'mypassword', // Replace with your database password
   port: 5432,            // Default PostgreSQL port
 });
 

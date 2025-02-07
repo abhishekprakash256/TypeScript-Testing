@@ -39,63 +39,42 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setupDatabase = setupDatabase;
-var connector_sql_1 = require("./connector_sql"); // import the clinedt
+var connector_sql_1 = require("./connector_sql"); // Import client
 function setupDatabase() {
     return __awaiter(this, void 0, void 0, function () {
         var error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 7, 8, 10]);
-                    // Connect to the client
+                    _a.trys.push([0, 3, 4, 6]);
+                    // Connect to PostgreSQL (Assumes database & schema already exist)
                     return [4 /*yield*/, connector_sql_1.client.connect()];
                 case 1:
-                    // Connect to the client
+                    // Connect to PostgreSQL (Assumes database & schema already exist)
                     _a.sent();
                     console.log('Connected to PostgreSQL');
-                    // Create a new database
-                    return [4 /*yield*/, connector_sql_1.client.query('CREATE DATABASE contact')];
+                    // Ensure the table exists in the `contact` schema
+                    return [4 /*yield*/, connector_sql_1.client.query("\n            CREATE TABLE IF NOT EXISTS contact.contacts (\n                id SERIAL PRIMARY KEY,\n                first_name VARCHAR(100) NOT NULL,\n                last_name VARCHAR(100) NOT NULL,\n                phone VARCHAR(15),\n                address JSONB,  -- Store address as a JSONB object\n                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n            )\n        ")];
                 case 2:
-                    // Create a new database
+                    // Ensure the table exists in the `contact` schema
                     _a.sent();
-                    console.log('Database created');
-                    // Reconnect to the newly created database
-                    return [4 /*yield*/, connector_sql_1.client.end()];
+                    console.log('Table "contacts" ensured');
+                    return [3 /*break*/, 6];
                 case 3:
-                    // Reconnect to the newly created database
-                    _a.sent();
-                    connector_sql_1.client.database = 'contact';
-                    return [4 /*yield*/, connector_sql_1.client.connect()];
-                case 4:
-                    _a.sent();
-                    console.log('Reconnected to new database');
-                    // Create a new schema
-                    return [4 /*yield*/, connector_sql_1.client.query('CREATE SCHEMA IF NOT EXISTS contact')];
-                case 5:
-                    // Create a new schema
-                    _a.sent();
-                    console.log('Schema created or already exists');
-                    // Create the table with a JSONB column for address
-                    return [4 /*yield*/, connector_sql_1.client.query("\n        CREATE TABLE IF NOT EXISTS contact.contacts (\n          id SERIAL PRIMARY KEY,\n          first_name VARCHAR(100) NOT NULL,\n          last_name VARCHAR(100) NOT NULL,\n          phone VARCHAR(15),\n          address JSONB,  -- Store address as a JSONB object\n          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n        )\n      ")];
-                case 6:
-                    // Create the table with a JSONB column for address
-                    _a.sent();
-                    console.log('Table "contacts" created or already exists');
-                    return [3 /*break*/, 10];
-                case 7:
                     error_1 = _a.sent();
                     console.error('Error during database setup:', error_1);
-                    return [3 /*break*/, 10];
-                case 8: 
-                // Make sure to disconnect
+                    return [3 /*break*/, 6];
+                case 4: 
+                // Disconnect after setup
                 return [4 /*yield*/, connector_sql_1.client.end()];
-                case 9:
-                    // Make sure to disconnect
+                case 5:
+                    // Disconnect after setup
                     _a.sent();
                     return [7 /*endfinally*/];
-                case 10: return [2 /*return*/];
+                case 6: return [2 /*return*/];
             }
         });
     });
 }
+//export { setupDatabase };
+setupDatabase();

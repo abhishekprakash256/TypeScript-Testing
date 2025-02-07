@@ -38,59 +38,53 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var connector_sql_1 = require("./connector_sql"); // import the clinedt
-var create_db_schema_1 = require("./create_db_schema");
+//import { setupDatabase } from './create_db_schema' ; 
 //THE CONSTS
 var DATA_BASE_NAME = 'contact';
+var TABLE_NAME = 'contact.contacts';
 //run the setupdatabase
-(0, create_db_schema_1.setupDatabase)();
+//setupDatabase();
 // Make sure 'client' is passed to the constructor
 var Helper_Fun = /** @class */ (function () {
     function Helper_Fun(client) {
         this.client = client;
     }
-    Helper_Fun.prototype.add_value = function () {
-        return __awaiter(this, arguments, void 0, function (database_name, entry) {
-            var columns, values, query, error_1;
-            if (database_name === void 0) { database_name = DATA_BASE_NAME; }
+    Helper_Fun.prototype.add_value = function (database_name, table_name, entry) {
+        return __awaiter(this, void 0, void 0, function () {
+            var columns, values, placeholders, query, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 4, 5, 7]);
+                        _a.trys.push([0, 3, 4, 6]);
                         // Connect to the specified database
                         return [4 /*yield*/, this.client.connect()];
                     case 1:
                         // Connect to the specified database
                         _a.sent();
                         console.log("Connected to database: ".concat(database_name));
-                        // Switch to the specified database if not already connected
-                        return [4 /*yield*/, this.client.query("SET search_path TO ".concat(database_name))];
-                    case 2:
-                        // Switch to the specified database if not already connected
-                        _a.sent();
                         columns = Object.keys(entry).join(", ");
-                        values = Object.values(entry)
-                            .map(function (value) { return "'".concat(value, "'"); })
-                            .join(", ");
-                        query = "INSERT INTO contact_table (".concat(columns, ") VALUES (").concat(values, ")");
+                        values = Object.values(entry);
+                        placeholders = values.map(function (_, i) { return "$".concat(i + 1); }).join(", ");
+                        query = "INSERT INTO ".concat(table_name, " (").concat(columns, ") VALUES (").concat(placeholders, ")");
                         // Execute the insert query
-                        return [4 /*yield*/, this.client.query(query)];
-                    case 3:
+                        return [4 /*yield*/, this.client.query(query, values)];
+                    case 2:
                         // Execute the insert query
                         _a.sent();
                         console.log("Value inserted successfully");
-                        return [3 /*break*/, 7];
-                    case 4:
+                        return [3 /*break*/, 6];
+                    case 3:
                         error_1 = _a.sent();
                         console.error("Error during inserting value:", error_1);
-                        return [3 /*break*/, 7];
-                    case 5: 
+                        return [3 /*break*/, 6];
+                    case 4: 
                     // Disconnect from the database
                     return [4 /*yield*/, this.client.end()];
-                    case 6:
+                    case 5:
                         // Disconnect from the database
                         _a.sent();
                         return [7 /*endfinally*/];
-                    case 7: return [2 /*return*/];
+                    case 6: return [2 /*return*/];
                 }
             });
         });
@@ -118,9 +112,13 @@ var helper_fun = new Helper_Fun(connector_sql_1.client);
 //test the database addtion of the data 
 //dummy data
 var entry = {
-    first_name: 'John',
-    last_name: 'Doe',
-    phone: '123456789',
-    address: '123 Street Name, City, Country'
+    first_name: 'Alice',
+    last_name: 'Johnson',
+    phone: '987654321',
+    address: JSON.stringify({
+        street: "456 Elm St",
+        city: "Los Angeles",
+        country: "USA"
+    }) // Convert JSON object to string for JSONB column
 };
-helper_fun.add_value(DATA_BASE_NAME, entry);
+helper_fun.add_value(DATA_BASE_NAME, TABLE_NAME, entry);
