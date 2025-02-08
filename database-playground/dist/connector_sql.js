@@ -8,7 +8,7 @@ exports.client = void 0;
 var pg_1 = require("pg");
 var client = new pg_1.Client({
     user: 'abhi',
-    host: 'host.docker.internal',
+    host: 'localhost',
     database: 'contact',
     password: 'mypassword',
     port: 5432,
