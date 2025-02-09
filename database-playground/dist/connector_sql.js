@@ -14,4 +14,7 @@ var client = new pg_1.Client({
     port: 5432,
 });
 exports.client = client;
+client.connect()
+    .then(function () { return console.log("Connected to PostgreSQL"); })
+    .catch(function (err) { return console.error(" Database Connection Error:", err); });
 //console.log(client) ; 
