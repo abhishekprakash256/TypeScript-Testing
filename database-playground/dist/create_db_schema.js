@@ -46,32 +46,32 @@ function setupDatabase() {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 3, 4, 6]);
+                    _a.trys.push([0, 2, 3, 5]);
                     // Connect to PostgreSQL (Assumes database & schema already exist)
-                    return [4 /*yield*/, connector_sql_1.client.connect()];
-                case 1:
-                    // Connect to PostgreSQL (Assumes database & schema already exist)
-                    _a.sent();
-                    console.log('Connected to PostgreSQL');
+                    //await client.connect();
+                    //console.log('Connected to PostgreSQL');
                     // Ensure the table exists in the `contact` schema
                     return [4 /*yield*/, connector_sql_1.client.query("\n            CREATE TABLE IF NOT EXISTS contact.contacts (\n                id SERIAL PRIMARY KEY,\n                first_name VARCHAR(100) NOT NULL,\n                last_name VARCHAR(100) NOT NULL,\n                phone VARCHAR(15),\n                address JSONB,  -- Store address as a JSONB object\n                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n            )\n        ")];
-                case 2:
+                case 1:
+                    // Connect to PostgreSQL (Assumes database & schema already exist)
+                    //await client.connect();
+                    //console.log('Connected to PostgreSQL');
                     // Ensure the table exists in the `contact` schema
                     _a.sent();
                     console.log('Table "contacts" ensured');
-                    return [3 /*break*/, 6];
-                case 3:
+                    return [3 /*break*/, 5];
+                case 2:
                     error_1 = _a.sent();
                     console.error('Error during database setup:', error_1);
-                    return [3 /*break*/, 6];
-                case 4: 
+                    return [3 /*break*/, 5];
+                case 3: 
                 // Disconnect after setup
                 return [4 /*yield*/, connector_sql_1.client.end()];
-                case 5:
+                case 4:
                     // Disconnect after setup
                     _a.sent();
                     return [7 /*endfinally*/];
-                case 6: return [2 /*return*/];
+                case 5: return [2 /*return*/];
             }
         });
     });

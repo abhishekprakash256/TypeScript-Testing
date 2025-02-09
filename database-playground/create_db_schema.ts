@@ -7,8 +7,8 @@ import { client } from './connector_sql';  // Import client
 async function setupDatabase() {
     try {
         // Connect to PostgreSQL (Assumes database & schema already exist)
-        await client.connect();
-        console.log('Connected to PostgreSQL');
+        //await client.connect();
+        //console.log('Connected to PostgreSQL');
 
         // Ensure the table exists in the `contact` schema
         await client.query(`
@@ -33,5 +33,5 @@ async function setupDatabase() {
 }
 
 //export { setupDatabase };
-
+   
 setupDatabase() ; 
