@@ -134,4 +134,5 @@ async function test_fun() {
 
 }
 
+// all the tests are working and passing
 test_fun(); // Call the function

@@ -4,7 +4,7 @@ file to create the db and db schema and tables
 
 import { client } from './connector_sql';  // Import client
 
-async function setupDatabase() {
+async function setupDatabase() {   
     try {
         // Connect to PostgreSQL (Assumes database & schema already exist)
         //await client.connect();
