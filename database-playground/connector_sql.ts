@@ -14,9 +14,9 @@ const client = new Client({
   port: 5432,
 });
 
-//client.connect()
-//  .then(() => console.log("Connected to PostgreSQL"))
-//  .catch(err => console.error(" Database Connection Error:", err));
+client.connect()
+  .then(() => console.log("Connected to PostgreSQL"))
+  .catch(err => console.error(" Database Connection Error:", err));
 
 
 
